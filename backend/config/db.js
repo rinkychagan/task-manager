@@ -1,6 +1,7 @@
 const { MongoClient } = require("mongodb");
 
-const uri = "mongodb://localhost:27017/taskmanager";
+const uri = "mongodb://localhost:27017";
+const dbName = "taskmanager";
 
 let client;
 
@@ -10,10 +11,16 @@ const connectDB = async () => {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
-    await client.connect();
-    console.log("Connected to MongoDB");
+
+    try {
+      await client.connect();
+      console.log("Connected to MongoDB");
+    } catch (error) {
+      console.error("Failed to connect to MongoDB", error);
+      throw error;
+    }
   }
-  return client.db();
+  return client.db(dbName);
 };
 
 module.exports = connectDB;

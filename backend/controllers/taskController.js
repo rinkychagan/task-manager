@@ -1,3 +1,4 @@
+const { MongoClient, ObjectId } = require("mongodb");
 const connectDB = require("../config/db");
 
 const getTasks = async (req, res) => {
@@ -43,7 +44,7 @@ const updateTask = async (req, res) => {
     const task = await db
       .collection("tasks")
       .findOneAndUpdate(
-        { _id: new require("mongodb").ObjectID(id) },
+        { _id: new ObjectId(id) },
         { $set: { name, description, completed } },
         { returnOriginal: false }
       );
@@ -65,7 +66,7 @@ const deleteTask = async (req, res) => {
     const db = await connectDB();
     const task = await db
       .collection("tasks")
-      .deleteOne({ _id: new require("mongodb").ObjectID(id) });
+      .deleteOne({ _id: new ObjectId(id) });
 
     if (task.deletedCount === 0) {
       return res.status(404).json({ message: "Task not found" });

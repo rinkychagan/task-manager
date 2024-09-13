@@ -21,13 +21,6 @@ export const createTask = async (task) => {
     }
 
     const data = await response.json();
-
-    if (data && data._id) {
-      console.log("Task created with ID:", data._id);
-    } else {
-      console.error("Unexpected response format:", data);
-    }
-
     return data;
   } catch (error) {
     console.error("Error creating task:", error);
@@ -50,4 +43,17 @@ export const deleteTask = async (id) => {
   await fetch(`${API_URL}/${id}`, {
     method: "DELETE",
   });
+};
+
+export const completeTask = async (id) => {
+  const response = await fetch(`${API_URL}/complete/${id}`, {
+    method: "PUT",
+  });
+  const data = await response.json();
+  return data;
+};
+export const fetchCompletedTasks = async () => {
+  const response = await fetch(`${API_URL}/completed`);
+  const data = await response.json();
+  return data;
 };
