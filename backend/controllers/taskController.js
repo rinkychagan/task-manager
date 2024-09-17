@@ -4,7 +4,9 @@ const connectDB = require("../config/db");
 const getTasks = async (req, res) => {
   try {
     const db = await connectDB();
+
     const tasks = await db.collection("tasks").find({}).toArray();
+
     res.json(tasks);
   } catch (error) {
     res.status(500).json({ message: "Server Error" });
@@ -22,7 +24,9 @@ const createTask = async (req, res) => {
 
   try {
     const db = await connectDB();
+
     const task = { name, description, completed: false };
+
     const result = await db.collection("tasks").insertOne(task);
 
     if (result.insertedId) {
@@ -41,6 +45,7 @@ const updateTask = async (req, res) => {
 
   try {
     const db = await connectDB();
+
     const task = await db
       .collection("tasks")
       .findOneAndUpdate(
@@ -64,6 +69,7 @@ const deleteTask = async (req, res) => {
 
   try {
     const db = await connectDB();
+
     const task = await db
       .collection("tasks")
       .deleteOne({ _id: new ObjectId(id) });

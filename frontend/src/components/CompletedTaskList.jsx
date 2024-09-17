@@ -1,4 +1,5 @@
 import React from "react";
+import { MdDelete } from "react-icons/md";
 
 const CompletedTaskList = ({ tasks, onDelete }) => {
   if (!tasks || tasks.length === 0) {
@@ -18,26 +19,28 @@ const CompletedTaskList = ({ tasks, onDelete }) => {
   };
 
   return (
-    <div className="grid grid-cols-6 gap-2">
+    <div className="grid grid-cols-5 gap-2">
       {tasks.map((task) => (
         <div
           key={task._id}
-          className="relative w-80 h-80 p-4 shadow-xl"
+          className="relative w-80 h-80 p-4 shadow-xl overflow-hidden"
           style={{
             transform: `rotate(${getRandomRotation()}deg)`,
             backgroundColor: getRandomColour(),
           }}
         >
-          <h2 className="text-4xl font-semibold line-through text-black font-gochi">
+          <h2 className="text-4xl font-semibold line-through text-black font-gochi overflow-hidden">
             {task.name}
           </h2>
-          <p className="text-black font-courier">{task.description}</p>
-          <div className="flex space-x-2 mt-auto justify-center">
+          <p className="text-black font-courier overflow-auto h-48">
+            {task.description}
+          </p>
+          <div className="flex space-x-2 mt-2 justify-center">
             <button
               onClick={() => onDelete(task._id)}
-              className="p-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+              className="p-2 text-black rounded-md hover:text-gray-800"
             >
-              Delete
+              <MdDelete />
             </button>
           </div>
         </div>

@@ -10,6 +10,7 @@ import {
   deleteTask,
   completeTask,
   fetchCompletedTasks,
+  deleteCompletedTask,
 } from "../services/taskService";
 
 const TaskPage = () => {
@@ -66,6 +67,11 @@ const TaskPage = () => {
     }
   };
 
+  const handleDeleteCompletedTask = async (id) => {
+    await deleteCompletedTask(id);
+    setCompletedTasks(completedTasks.filter((task) => task._id !== id));
+  };
+
   const tabs = [
     {
       id: 0,
@@ -84,7 +90,10 @@ const TaskPage = () => {
       id: 1,
       label: "Completed Tasks",
       content: (
-        <CompletedTaskList tasks={completedTasks} onDelete={handleDeleteTask} />
+        <CompletedTaskList
+          tasks={completedTasks}
+          onDelete={handleDeleteCompletedTask}
+        />
       ),
     },
     {
@@ -94,7 +103,7 @@ const TaskPage = () => {
         <div className="flex justify-center items-center min-w-screen m-24 ">
           <form
             onSubmit={handleCreateTask}
-            className="flex flex-col items-center justify-center space-y-4 bg-yellow-200 p-4 rounded-lg shadow-lg relative w-96 h-96"
+            className="flex flex-col items-center justify-center space-y-4 bg-yellow-200 p-4  shadow-lg relative w-96 h-96"
           >
             <input
               type="text"
@@ -125,17 +134,17 @@ const TaskPage = () => {
   ];
 
   return (
-    <div className="flex flex-col min-h-screen pl-20 pr-20 pb-20 pt-4">
-      <div className=" flex">
+    <div className="flex flex-col min-h-screen pl-20 pr-20 pb-20 mb-2 pt-4 ">
+      <div className="flex">
         {tabs.map((tab) => (
           <button
             key={tab.id}
-            className={`tab px-4 py-2 text-gray-800 font-medium cursor-pointer transition-all  border-[#1E1E1E] ${
+            className={`px-4 py-2 text-gray-800 font-medium cursor-pointer transition-all border-[#1E1E1E] ${
               styles.noise
             } ${
               activeTab === tab.id
                 ? "bg-white border border-t border-r border-l rounded-t-lg border-[#1E1E1E]"
-                : "bg-[#B3B9B7] border rounded-t-lg  border[#1E1E1E] "
+                : "bg-[#B3B9B7] border rounded-t-lg border[#1E1E1E]"
             }`}
             onClick={() => setActiveTab(tab.id)}
           >
@@ -145,9 +154,12 @@ const TaskPage = () => {
       </div>
 
       <div
-        className={`flex-grow  bg-[#B3B9B7] border border-[#1E1E1E] rounded-e-lg rounded-b-lg p-6 shadow-md ${styles.noise}`}
+        className={`flex-grow bg-[#B3B9B7] border border-[#1E1E1E] rounded-e-lg rounded-b-lg shadow-md ${styles.noise}`}
+        style={{ height: "200px", overflowY: "auto" }}
       >
-        {tabs[activeTab].content}
+        <div className={` p-12 ${styles.scrollable}`}>
+          {tabs[activeTab].content}
+        </div>
       </div>
     </div>
   );

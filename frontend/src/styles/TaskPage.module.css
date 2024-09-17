@@ -1,6 +1,5 @@
 .noise {
   position: relative;
-  /* background-color: #b3b9b7; Background color of the div */
 }
 
 .noise::before {
@@ -14,4 +13,11 @@
   background-repeat: repeat;
   opacity: 0.1;
   pointer-events: none;
+}
+
+.scrollable {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  overflow-y: auto;
 }

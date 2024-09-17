@@ -20,5 +20,5 @@ connectDB()
 app.use("/api/tasks", taskRoutes);
 
 app.listen(PORT, () => {
-  console.log(`Connected ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });

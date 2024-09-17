@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { MdEdit } from "react-icons/md";
+import { FaCheck } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
 
 const TaskList = ({ tasks, onUpdate, onDelete, onEdit, onComplete }) => {
   const [isEditing, setIsEditing] = useState(null);
@@ -37,7 +40,7 @@ const TaskList = ({ tasks, onUpdate, onDelete, onEdit, onComplete }) => {
   };
 
   return (
-    <div className="grid grid-cols-6 gap-2">
+    <div className="grid grid-cols-5 gap-2">
       {tasks.map((task) =>
         task ? (
           <div
@@ -91,10 +94,10 @@ const TaskList = ({ tasks, onUpdate, onDelete, onEdit, onComplete }) => {
             ) : (
               <div className="flex flex-col h-full">
                 <h2
-                  className={`text-xl font-semibold ${
+                  className={`text-4xl  font-semibold ${
                     task.completed
                       ? "line-through text-gray-500 font-gochi"
-                      : "text-black text-2xl font-gochi"
+                      : "text-black font-gochi"
                   }`}
                 >
                   {task.name}
@@ -102,26 +105,26 @@ const TaskList = ({ tasks, onUpdate, onDelete, onEdit, onComplete }) => {
                 <div className="flex-grow overflow-auto mt-2">
                   <p className="text-black font-courier">{task.description}</p>
                 </div>
-                <div className="flex space-x-2 mt-4">
+                <div className="flex space-x-2 mt-2 justify-center">
                   <button
                     onClick={() => startEditing(task)}
-                    className="p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+                    className="p-2 text-black rounded-md hover:text-gray-800"
                   >
-                    Edit
+                    <MdEdit />
                   </button>
                   {!task.completed && (
                     <button
                       onClick={() => onComplete(task._id)}
-                      className="p-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600"
+                      className="p-2 text-black rounded-md hover:text-gray-800"
                     >
-                      Complete?
+                      <FaCheck />
                     </button>
                   )}
                   <button
                     onClick={() => onDelete(task._id)}
-                    className="p-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+                    className="p-2 text-black rounded-md hover:text-gray-800"
                   >
-                    Delete
+                    <MdDelete />
                   </button>
                 </div>
               </div>
